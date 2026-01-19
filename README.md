@@ -1,2 +1,1477 @@
-# artha-teknik-service-cleaning-website
-service-booking-system-cleaning-service-website
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="site-title">Artha Teknik | Jasa Cuci AC Profesional</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* DYNAMIC VARIABLES - WILL BE CONTROLLED BY ADMIN */
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #0d47a1;
+            --accent-color: #00c853;
+            --danger-color: #e53935;
+            --warning-color: #ff9800;
+            --success-color: #4caf50;
+            --text-color: #333333;
+            --bg-color: #f8f9fa;
+            --card-color: #ffffff;
+            --border-color: #e0e0e0;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+            --font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ==================== HEADER ==================== */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .logo-container {
+            margin-bottom: 1rem;
+        }
+
+        #business-logo {
+            max-width: 150px;
+            max-height: 80px;
+            border-radius: 8px;
+            background: white;
+            padding: 10px;
+            display: inline-block;
+        }
+
+        .logo-placeholder {
+            font-size: 3rem;
+            background: white;
+            color: var(--primary-color);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .role-selector {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .role-btn {
+            padding: 0.8rem 1.5rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .role-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .role-btn.active {
+            background: white;
+            color: var(--primary-color);
+            border-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        /* ==================== CONTENT SECTIONS ==================== */
+.content-section {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.content-section.active {
+    display: block;
+}
+
+/* ==================== CUSTOMER SECTION ==================== */
+.customer-form {
+    background: var(--card-color);
+    border-radius: var(--radius);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+}
+
+.form-title {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.form-title i {
+    font-size: 1.5rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-group label i {
+    color: var(--primary-color);
+}
+
+.required::after {
+    content: ' *';
+    color: var(--danger-color);
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: var(--card-color);
+    color: var(--text-color);
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.1);
+}
+
+/* PRICE CALCULATOR */
+.price-calculator {
+    background: linear-gradient(135deg, rgba(var(--primary-color-rgb), 0.1), rgba(var(--secondary-color-rgb), 0.1));
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-left: 5px solid var(--primary-color);
+}
+
+.price-display {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    text-align: center;
+    margin: 1rem 0;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.price-breakdown {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+/* SERVICES SHOWCASE */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.service-card {
+    background: var(--card-color);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.service-card i {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.service-card h4 {
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+/* ==================== TECHNICIAN SECTION ==================== */
+.login-card {
+    background: var(--card-color);
+    border-radius: var(--radius);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.stat-card {
+    background: var(--card-color);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+}
+
+.stat-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.job-list {
+    margin-top: 1.5rem;
+}
+
+.job-item {
+    background: var(--bg-color);
+    border-radius: 8px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.job-item:hover {
+    background: rgba(var(--primary-color-rgb), 0.05);
+}
+
+.job-status {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+
+.status-pending { background: #fff3cd; color: #856404; }
+.status-progress { background: #cce5ff; color: #004085; }
+.status-completed { background: #d4edda; color: #155724; }
+.status-cancelled { background: #f8d7da; color: #721c24; }
+
+/* ==================== ADMIN SECTION ==================== */
+.admin-dashboard {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+@media (max-width: 992px) {
+    .admin-dashboard {
+        grid-template-columns: 1fr;
+    }
+}
+
+.admin-sidebar {
+    background: var(--card-color);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    height: fit-content;
+}
+
+.admin-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.admin-nav-btn {
+    padding: 1rem;
+    border: none;
+    background: none;
+    text-align: left;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.admin-nav-btn:hover {
+    background: rgba(var(--primary-color-rgb), 0.1);
+    color: var(--primary-color);
+}
+
+.admin-nav-btn.active {
+    background: var(--primary-color);
+    color: white;
+}
+
+.admin-content {
+    background: var(--card-color);
+    border-radius: var(--radius);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+}
+
+/* ANALYTICS DASHBOARD */
+.analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.metric-card {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.metric-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0.5rem 0;
+}
+
+.metric-label {
+    opacity: 0.9;
+    font-size: 0.9rem;
+}
+
+.chart-container {
+    background: var(--card-color);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow);
+}
+
+/* PRICE EDITOR */
+.price-editor {
+    background: var(--card-color);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow);
+}
+
+.price-matrix {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.price-cell {
+    background: var(--bg-color);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.price-cell input {
+    width: 100%;
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+        /* BRANDING EDITOR */
+        .branding-editor {
+            background: var(--card-color);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .color-palette {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .color-item {
+            text-align: center;
+        }
+
+        .color-preview {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 0.5rem auto;
+            border: 3px solid white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+
+        .color-input {
+            width: 100%;
+            height: 40px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        /* TECHNICIAN MANAGER */
+        .technician-manager {
+            background: var(--card-color);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .technician-list {
+            margin-top: 1rem;
+        }
+
+        .technician-item {
+            background: var(--bg-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* ==================== BUTTONS ==================== */
+        .btn {
+            padding: 0.9rem 1.8rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(var(--primary-color-rgb), 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--bg-color);
+            color: var(--text-color);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-danger {
+            background: var(--danger-color);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn-block {
+            width: 100%;
+            display: block;
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* ==================== UTILITY ==================== */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-1 { margin-top: 1rem; }
+        .mt-2 { margin-top: 2rem; }
+        .mb-1 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 2rem; }
+
+        .card {
+            background: var(--card-color);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+        }
+
+        /* ==================== MODAL ==================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal {
+            background: var(--card-color);
+            border-radius: var(--radius);
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-footer {
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        /* ==================== NOTIFICATION ==================== */
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .notification {
+            background: var(--card-color);
+            border-radius: var(--radius);
+            padding: 1rem 1.5rem;
+            margin-bottom: 0.5rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary-color);
+            animation: slideInRight 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .notification.success { border-left-color: var(--success-color); }
+        .notification.error { border-left-color: var(--danger-color); }
+        .notification.warning { border-left-color: var(--warning-color); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER WITH BRANDING -->
+        <header class="header">
+            <div class="logo-container">
+                <div id="logo-display">
+                    <div class="logo-placeholder" id="logo-placeholder">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <img id="business-logo" class="hidden" alt="Business Logo">
+                </div>
+            </div>
+            
+            <h1 id="business-name">Artha Teknik</h1>
+            <p id="business-tagline">Jasa Cuci AC Profesional & Terpercaya</p>
+            
+            <div class="role-selector">
+                <button class="role-btn active" data-role="customer">
+                    <i class="fas fa-user"></i> PELANGGAN
+                </button>
+                <button class="role-btn" data-role="technician">
+                    <i class="fas fa-tools"></i> TEKNISI
+                </button>
+                <button class="role-btn" data-role="admin">
+                    <i class="fas fa-crown"></i> ADMIN
+                </button>
+            </div>
+        </header>
+
+        <!-- ==================== -->
+        <!-- 1. CUSTOMER SECTION -->
+        <!-- ==================== -->
+        <section id="customer-section" class="content-section active">
+            <div class="customer-form">
+                <h2 class="form-title">
+                    <i class="fas fa-concierge-bell"></i> Form Pemesanan Layanan
+                </h2>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="required">
+                            <i class="fas fa-user"></i> Nama Lengkap
+                        </label>
+                        <input type="text" id="customer-name" placeholder="Nama lengkap Anda">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="required">
+                            <i class="fas fa-phone"></i> Nomor WhatsApp
+                        </label>
+                        <input type="tel" id="customer-phone" placeholder="0812-3456-7890">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="required">
+                        <i class="fas fa-map-marker-alt"></i> Alamat Lengkap
+                    </label>
+                    <textarea id="customer-address" rows="3" placeholder="Alamat lengkap untuk service"></textarea>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="required">
+                            <i class="fas fa-snowflake"></i> Jenis AC
+                        </label>
+                        <select id="ac-type">
+                            <option value="split">AC Split</option>
+                            <option value="window">AC Window</option>
+                            <option value="cassette">AC Cassette</option>
+                            <option value="standing">AC Standing</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="required">
+                            <i class="fas fa-bolt"></i> Kapasitas (PK)
+                        </label>
+                        <select id="ac-pk">
+                            <option value="0.5">1/2 PK</option>
+                            <option value="1">1 PK</option>
+                            <option value="1.5">1.5 PK</option>
+                            <option value="2">2 PK</option>
+                            <option value="2.5">2.5 PK</option>
+                            <option value="3">3 PK</option>
+                            <option value="5">5 PK</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-layer-group"></i> Jumlah Unit
+                        </label>
+                        <input type="number" id="unit-count" min="1" max="10" value="1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-tint"></i> Tambahan Layanan
+                        </label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="add-freon" value="freon">
+                                <span>Isi Freon</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="add-service" value="service">
+                                <span>Servis Komponen</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="add-chemical" value="chemical">
+                                <span>Chemical Cleaning</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PRICE CALCULATOR -->
+                <div class="price-calculator">
+                    <h3><i class="fas fa-calculator"></i> Kalkulator Harga</h3>
+                    <div class="price-display" id="price-display">Rp 0</div>
+                    <div class="price-breakdown" id="price-breakdown">
+                        <!-- Price breakdown will be shown here -->
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary btn-block" id="submit-order">
+                    <i class="fab fa-whatsapp"></i> Pesan via WhatsApp
+                </button>
+            </div>
+            
+            <!-- SERVICES SHOWCASE -->
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-pump-soap"></i>
+                    <h4>Cuci Standard</h4>
+                    <p>Pembersihan dasar unit AC</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-flask"></i>
+                    <h4>Chemical Wash</h4>
+                    <p>Pembersihan dengan chemical khusus</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-tint"></i>
+                    <h4>Isi Freon</h4>
+                    <p>Pengisian freon R32/R410a</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-wrench"></i>
+                    <h4>Servis Komponen</h4>
+                    <p>Perbaikan & penggantian komponen</p>
+                </div>
+            </div>
+        </section>
+        <!-- ==================== -->
+<!-- 2. TECHNICIAN SECTION -->
+<!-- ==================== -->
+<section id="technician-section" class="content-section">
+    <div class="login-card">
+        <h2 class="form-title">
+            <i class="fas fa-id-card"></i> Login Teknisi
+        </h2>
+        
+        <div id="technician-login-form">
+            <div class="form-group">
+                <label><i class="fas fa-id-badge"></i> ID Teknisi</label>
+                <input type="text" id="tech-id" placeholder="TECH-001">
+            </div>
+            
+            <div class="form-group">
+                <label><i class="fas fa-lock"></i> Password</label>
+                <input type="password" id="tech-password" placeholder="••••••••">
+            </div>
+            
+            <button class="btn btn-primary btn-block" id="tech-login-btn">
+                <i class="fas fa-sign-in-alt"></i> Masuk
+            </button>
+            
+            <p class="text-center mt-1 small">
+                <i class="fas fa-info-circle"></i> ID & password diberikan oleh admin
+            </p>
+        </div>
+        
+        <!-- TECHNICIAN DASHBOARD (HIDDEN INITIALLY) -->
+        <div id="technician-dashboard" class="hidden">
+            <div class="dashboard-header">
+                <h3><i class="fas fa-tachometer-alt"></i> Dashboard Teknisi</h3>
+                <p>Selamat datang, <span id="tech-greeting"></span></p>
+            </div>
+            
+            <div class="stat-card">
+                <h3><i class="fas fa-tasks"></i> Tugas Hari Ini</h3>
+                <div class="job-list" id="technician-jobs">
+                    <!-- Jobs will be loaded here -->
+                </div>
+            </div>
+            
+            <div class="action-buttons mt-2">
+                <button class="btn btn-secondary" id="tech-report-btn">
+                    <i class="fas fa-file-alt"></i> Buat Laporan
+                </button>
+                <button class="btn btn-danger" id="tech-logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== -->
+<!-- 3. ADMIN LOGIN SECTION -->
+<!-- ==================== -->
+<section id="admin-login-section" class="content-section">
+    <div class="login-card">
+        <h2 class="form-title">
+            <i class="fas fa-shield-alt"></i> Admin Login
+        </h2>
+        
+        <p class="mb-2">Masukkan password admin untuk mengakses panel kontrol</p>
+        
+        <div class="form-group">
+            <label><i class="fas fa-key"></i> Password Admin</label>
+            <input type="password" id="admin-password" placeholder="Masukkan password">
+            <small class="hint">Default: <code>Artha_Teknik1234</code></small>
+        </div>
+        
+        <button class="btn btn-primary btn-block" id="admin-login-btn">
+            <i class="fas fa-unlock"></i> Masuk sebagai Admin
+        </button>
+    </div>
+</section>
+
+<!-- ==================== -->
+<!-- 4. ADMIN DASHBOARD SECTION -->
+<!-- ==================== -->
+<section id="admin-dashboard-section" class="content-section hidden">
+    <div class="admin-dashboard">
+        <!-- SIDEBAR NAVIGATION -->
+        <div class="admin-sidebar">
+            <h3 class="mb-2"><i class="fas fa-cogs"></i> Panel Admin</h3>
+            
+            <div class="admin-nav">
+                <button class="admin-nav-btn active" data-tab="dashboard">
+                    <i class="fas fa-chart-line"></i> Dashboard
+                </button>
+                <button class="admin-nav-btn" data-tab="orders">
+                    <i class="fas fa-clipboard-list"></i> Order Management
+                </button>
+                <button class="admin-nav-btn" data-tab="pricing">
+                    <i class="fas fa-tags"></i> Pricing Manager
+                </button>
+                <button class="admin-nav-btn" data-tab="technicians">
+                    <i class="fas fa-users-cog"></i> Technician Manager
+                </button>
+                <button class="admin-nav-btn" data-tab="branding">
+                    <i class="fas fa-palette"></i> Branding Studio
+                </button>
+                <button class="admin-nav-btn" data-tab="settings">
+                    <i class="fas fa-sliders-h"></i> Settings
+                </button>
+            </div>
+            
+            <div class="mt-2">
+                <button class="btn btn-danger btn-block" id="admin-logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout Admin
+                </button>
+            </div>
+        </div>
+        
+        <!-- MAIN CONTENT AREA -->
+        <div class="admin-content">
+            <!-- DASHBOARD TAB -->
+            <div id="dashboard-tab" class="admin-tab-content active">
+                <h2 class="form-title">
+                    <i class="fas fa-chart-line"></i> Analytics Dashboard
+                </h2>
+                
+                <!-- QUICK STATS -->
+                <div class="analytics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value" id="daily-revenue">Rp 0</div>
+                        <div class="metric-label">Pendapatan Hari Ini</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="weekly-revenue">Rp 0</div>
+                        <div class="metric-label">Pendapatan Minggu Ini</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="monthly-revenue">Rp 0</div>
+                        <div class="metric-label">Pendapatan Bulan Ini</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="total-revenue">Rp 0</div>
+                        <div class="metric-label">Total Pendapatan</div>
+                    </div>
+                </div>
+                
+                <!-- CHARTS -->
+                <div class="chart-container">
+                    <h3><i class="fas fa-chart-bar"></i> Revenue Trend (30 Hari)</h3>
+                    <canvas id="revenueChart" height="100"></canvas>
+                </div>
+                
+                <div class="chart-container">
+                    <h3><i class="fas fa-chart-pie"></i> Service Distribution</h3>
+                    <canvas id="serviceChart" height="100"></canvas>
+                </div>
+            </div>
+            
+            <!-- ORDERS TAB -->
+            <div id="orders-tab" class="admin-tab-content">
+                <h2 class="form-title">
+                    <i class="fas fa-clipboard-list"></i> Order Management
+                </h2>
+                
+                <div class="card">
+                    <h3><i class="fas fa-filter"></i> Filter Orders</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Date Range</label>
+                            <input type="date" id="filter-start-date">
+                        </div>
+                        <div class="form-group">
+                            <label>to</label>
+                            <input type="date" id="filter-end-date">
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select id="filter-status">
+                                <option value="all">Semua Status</option>
+                                <option value="pending">Pending</option>
+                                <option value="confirmed">Confirmed</option>
+                                <option value="completed">Completed</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" id="apply-filter">
+                        <i class="fas fa-filter"></i> Apply Filter
+                    </button>
+                </div>
+                
+                <div class="card">
+                    <h3><i class="fas fa-list"></i> All Orders</h3>
+                    <div id="orders-list">
+                        <!-- Orders will be loaded here -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- PRICING TAB -->
+            <div id="pricing-tab" class="admin-tab-content">
+                <h2 class="form-title">
+                    <i class="fas fa-tags"></i> Pricing Manager
+                </h2>
+                
+                <div class="price-editor">
+                    <h3><i class="fas fa-snowflake"></i> AC Split Pricing</h3>
+                    <div class="price-matrix" id="split-pricing">
+                        <!-- Split prices will be loaded here -->
+                    </div>
+                </div>
+                
+                <div class="price-editor">
+                    <h3><i class="fas fa-window-maximize"></i> AC Window Pricing</h3>
+                    <div class="price-matrix" id="window-pricing">
+                        <!-- Window prices will be loaded here -->
+                    </div>
+                </div>
+                
+                <div class="price-editor">
+                    <h3><i class="fas fa-cube"></i> Additional Services</h3>
+                    <div id="additional-services">
+                        <!-- Additional services will be loaded here -->
+                    </div>
+                </div>
+                
+                <button class="btn btn-success btn-block" id="save-pricing">
+                    <i class="fas fa-save"></i> Save All Pricing
+                </button>
+            </div>
+            
+            <!-- TECHNICIANS TAB -->
+            <div id="technicians-tab" class="admin-tab-content">
+                <h2 class="form-title">
+                    <i class="fas fa-users-cog"></i> Technician Manager
+                </h2>
+                
+                <div class="card">
+                    <h3><i class="fas fa-user-plus"></i> Add New Technician</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="new-tech-name" placeholder="Nama lengkap">
+                        </div>
+                        <div class="form-group">
+                            <label>Technician ID</label>
+                            <input type="text" id="new-tech-id" placeholder="TECH-001">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="text" id="new-tech-password" placeholder="Password default">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" id="add-technician-btn">
+                        <i class="fas fa-plus"></i> Add Technician
+                    </button>
+                </div>
+                
+                <div class="card">
+                    <h3><i class="fas fa-list"></i> Technician List</h3>
+                    <div id="technicians-list">
+                        <!-- Technicians will be loaded here -->
+                    </div>
+                </div>
+            </div>
+                            <!-- BRANDING TAB -->
+                <div id="branding-tab" class="admin-tab-content">
+                    <h2 class="form-title">
+                        <i class="fas fa-palette"></i> Branding Studio
+                    </h2>
+                    
+                    <div class="card">
+                        <h3><i class="fas fa-image"></i> Company Logo</h3>
+                        <div class="logo-preview mb-1">
+                            <div id="current-logo-preview"></div>
+                        </div>
+                        <input type="file" id="logo-upload" accept="image/*" class="hidden">
+                        <button class="btn btn-secondary" id="upload-logo-btn">
+                            <i class="fas fa-upload"></i> Upload New Logo
+                        </button>
+                    </div>
+                    
+                    <div class="card">
+                        <h3><i class="fas fa-font"></i> Business Information</h3>
+                        <div class="form-group">
+                            <label>Business Name</label>
+                            <input type="text" id="edit-business-name" value="Artha Teknik">
+                        </div>
+                        <div class="form-group">
+                            <label>Tagline</label>
+                            <input type="text" id="edit-business-tagline" value="Jasa Cuci AC Profesional & Terpercaya">
+                        </div>
+                        <button class="btn btn-primary" id="save-business-info">
+                            <i class="fas fa-save"></i> Save Business Info
+                        </button>
+                    </div>
+                    
+                    <div class="card">
+                        <h3><i class="fas fa-fill-drip"></i> Color Theme</h3>
+                        <div class="color-palette">
+                            <div class="color-item">
+                                <label>Primary Color</label>
+                                <input type="color" id="primary-color-picker" value="#1a73e8">
+                                <div class="color-preview" style="background: #1a73e8;"></div>
+                            </div>
+                            <div class="color-item">
+                                <label>Secondary Color</label>
+                                <input type="color" id="secondary-color-picker" value="#0d47a1">
+                                <div class="color-preview" style="background: #0d47a1;"></div>
+                            </div>
+                            <div class="color-item">
+                                <label>Accent Color</label>
+                                <input type="color" id="accent-color-picker" value="#00c853">
+                                <div class="color-preview" style="background: #00c853;"></div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary mt-1" id="apply-theme-btn">
+                            <i class="fas fa-check"></i> Apply Theme
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- SETTINGS TAB -->
+                <div id="settings-tab" class="admin-tab-content">
+                    <h2 class="form-title">
+                        <i class="fas fa-sliders-h"></i> System Settings
+                    </h2>
+                    
+                    <div class="card">
+                        <h3><i class="fas fa-lock"></i> Security Settings</h3>
+                        <div class="form-group">
+                            <label>Change Admin Password</label>
+                            <input type="password" id="new-admin-password" placeholder="New password">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input type="password" id="confirm-admin-password" placeholder="Confirm new password">
+                        </div>
+                        <button class="btn btn-primary" id="change-password-btn">
+                            <i class="fas fa-key"></i> Change Password
+                        </button>
+                    </div>
+                    
+                    <div class="card">
+                        <h3><i class="fas fa-database"></i> Data Management</h3>
+                        <div class="form-grid">
+                            <button class="btn btn-secondary" id="export-data-btn">
+                                <i class="fas fa-download"></i> Export Data
+                            </button>
+                            <button class="btn btn-secondary" id="import-data-btn">
+                                <i class="fas fa-upload"></i> Import Data
+                            </button>
+                            <button class="btn btn-danger" id="reset-data-btn">
+                                <i class="fas fa-trash"></i> Reset to Default
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- NOTIFICATION CONTAINER -->
+<div class="notification-container" id="notification-container"></div>
+
+<!-- MODAL OVERLAY -->
+<div class="modal-overlay hidden" id="modal-overlay">
+    <div class="modal" id="modal">
+        <div class="modal-header">
+            <h3 id="modal-title">Modal Title</h3>
+            <button class="btn btn-sm" id="modal-close">&times;</button>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <!-- Modal content will be inserted here -->
+        </div>
+        <div class="modal-footer" id="modal-footer">
+            <!-- Modal buttons will be inserted here -->
+        </div>
+    </div>
+</div>
+    <!-- MAIN JAVASCRIPT -->
+    <script>
+        // ==================== CONFIGURATION ====================
+        const CONFIG = {
+            VERSION: '3.0',
+            STORAGE_KEY: 'artha_teknik_ultimate',
+            ADMIN_PASSWORD: 'Artha_Teknik1234',
+            DEFAULT_WHATSAPP: '6281234567890'
+        };
+
+        // ==================== GLOBAL STATE ====================
+        let appState = {
+            // Authentication
+            authenticated: false,
+            currentUser: null,
+            userRole: null,
+            
+            // Data
+            branding: {
+                businessName: 'Artha Teknik',
+                tagline: 'Jasa Cuci AC Profesional & Terpercaya',
+                logo: null,
+                colors: {
+                    primary: '#1a73e8',
+                    secondary: '#0d47a1',
+                    accent: '#00c853',
+                    danger: '#e53935',
+                    warning: '#ff9800',
+                    success: '#4caf50',
+                    text: '#333333',
+                    bg: '#f8f9fa',
+                    card: '#ffffff',
+                    border: '#e0e0e0'
+                }
+            },
+            
+            pricing: {
+                split: {
+                    '0.5': 150000,
+                    '1': 180000,
+                    '1.5': 220000,
+                    '2': 250000,
+                    '2.5': 300000,
+                    '3': 350000,
+                    '5': 500000
+                },
+                window: {
+                    '0.5': 130000,
+                    '1': 150000,
+                    '1.5': 180000,
+                    '2': 210000,
+                    '2.5': 250000,
+                    '3': 300000,
+                    '5': 450000
+                },
+                cassette: {
+                    '0.5': 200000,
+                    '1': 250000,
+                    '1.5': 300000,
+                    '2': 350000,
+                    '2.5': 400000,
+                    '3': 450000,
+                    '5': 600000
+                },
+                standing: {
+                    '0.5': 180000,
+                    '1': 220000,
+                    '1.5': 260000,
+                    '2': 300000,
+                    '2.5': 350000,
+                    '3': 400000,
+                    '5': 550000
+                },
+                additional: {
+                    freon: 80000,
+                    service: 120000,
+                    chemical: 150000
+                }
+            },
+            
+            technicians: [
+                { id: 'TECH-001', name: 'Budi Santoso', password: 'tech123', active: true, joinDate: '2024-01-01' },
+                { id: 'TECH-002', name: 'Siti Aminah', password: 'tech456', active: true, joinDate: '2024-01-15' },
+                { id: 'TECH-003', name: 'Ahmad Rizki', password: 'tech789', active: false, joinDate: '2024-02-01' }
+            ],
+            
+            orders: [],
+            
+            settings: {
+                adminPassword: CONFIG.ADMIN_PASSWORD,
+                whatsappNumber: CONFIG.DEFAULT_WHATSAPP,
+                workingHours: '08:00 - 17:00',
+                taxRate: 0.11
+            },
+            
+            analytics: {
+                dailyRevenue: 0,
+                weeklyRevenue: 0,
+                monthlyRevenue: 0,
+                totalRevenue: 0,
+                orderCount: 0,
+                customerCount: 0
+            }
+        };
+
+        // ==================== UTILITY FUNCTIONS ====================
+        function showNotification(message, type = 'info', duration = 3000) {
+            const container = document.getElementById('notification-container');
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            
+            const icons = {
+                success: 'fas fa-check-circle',
+                error: 'fas fa-exclamation-circle',
+                warning: 'fas fa-exclamation-triangle',
+                info: 'fas fa-info-circle'
+            };
+            
+            notification.innerHTML = `
+                <i class="${icons[type] || icons.info}"></i>
+                <span>${message}</span>
+            `;
+            
+            container.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideInRight 0.3s ease reverse';
+                setTimeout(() => notification.remove(), 300);
+            }, duration);
+        }
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(amount);
+        }
+
+        function saveToStorage() {
+            try {
+                localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(appState));
+                return true;
+            } catch (e) {
+                showNotification('Gagal menyimpan data!', 'error');
+                return false;
+            }
+        }
+
+        function loadFromStorage() {
+            try {
+                const saved = localStorage.getItem(CONFIG.STORAGE_KEY);
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    appState = { ...appState, ...parsed };
+                    applyBranding();
+                    updateAnalytics();
+                    return true;
+                }
+            } catch (e) {
+                console.error('Error loading from storage:', e);
+            }
+            return false;
+        }
+
+        function showModal(title, content, buttons = []) {
+            const modal = document.getElementById('modal-overlay');
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+            const modalFooter = document.getElementById('modal-footer');
+            
+            modalTitle.textContent = title;
+            modalBody.innerHTML = content;
+            
+            modalFooter.innerHTML = '';
+            buttons.forEach(button => {
+                const btn = document.createElement('button');
+                btn.className = `btn ${button.class || 'btn-secondary'}`;
+                btn.textContent = button.text;
+                btn.onclick = button.action;
+                modalFooter.appendChild(btn);
+            });
+            
+            modal.classList.remove('hidden');
+            
+            // Close modal on overlay click
+            modal.onclick = (e) => {
+                if (e.target === modal) {
+                    hideModal();
+                }
+            };
+            
+            document.getElementById('modal-close').onclick = hideModal;
+        }
+
+        function hideModal() {
+            document.getElementById('modal-overlay').classList.add('hidden');
+        }
+
+        // ==================== BRANDING SYSTEM ====================
+        function applyBranding() {
+            // Update CSS variables
+            const root = document.documentElement;
+            const colors = appState.branding.colors;
+            
+            root.style.setProperty('--primary-color', colors.primary);
+            root.style.setProperty('--secondary-color', colors.secondary);
+            root.style.setProperty('--accent-color', colors.accent);
+            root.style.setProperty('--danger-color', colors.danger);
+            root.style.setProperty('--warning-color', colors.warning);
+            root.style.setProperty('--success-color', colors.success);
+            root.style.setProperty('--text-color', colors.text);
+            root.style.setProperty('--bg-color', colors.bg);
+            root.style.setProperty('--card-color', colors.card);
+            root.style.setProperty('--border-color', colors.border);
+            
+            // Calculate RGB values for shadows
+            const primaryRGB = hexToRGB(colors.primary);
+            root.style.setProperty('--primary-color-rgb', primaryRGB);
+            
+            // Update business info
+            document.getElementById('business-name').textContent = appState.branding.businessName;
+            document.getElementById('business-tagline').textContent = appState.branding.tagline;
+            document.getElementById('site-title').textContent = `${appState.branding.businessName} | ${appState.branding.tagline}`;
+            
+            // Update logo
+            const logoDisplay = document.getElementById('logo-display');
+            if (appState.branding.logo) {
+                document.getElementById('logo-placeholder').classList.add('hidden');
+                const logoImg = document.getElementById('business-logo');
+                logoImg.src = appState.branding.logo;
+                logoImg.classList.remove('hidden');
+            } else {
+                document.getElementById('logo-placeholder').classList.remove('hidden');
+                document.getElementById('business-logo').classList.add('hidden');
+            }
+            
+            // Update admin panel
+            document.getElementById('edit-business-name').value = appState.branding.businessName;
+            document.getElementById('edit-business-tagline').value = appState.branding.tagline;
+            document.getElementById('primary-color-picker').value = colors.primary;
+            document.getElementById('secondary-color-picker').value = colors.secondary;
+            document.getElementById('accent-color-picker').value = colors.accent;
+        }
+
+        function hexToRGB(hex) {
+            const r = parseInt(hex.slice(1, 3), 16);
+            const g = parseInt(hex.slice(3, 5), 16);
+            const b = parseInt(hex.slice(5, 7), 16);
+            return `${r}, ${g}, ${b}`;
+        }
+</script>
+</body>
+</html>
